@@ -33,16 +33,16 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
-        android:id="@+id/homeButton"
+        android:id="@+id/homeButtonEditProfilePage"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="185dp"
-        android:layout_marginEnd="185dp"
         android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintHorizontal_bias="0.279"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logOutButton"
+        app:layout_constraintVertical_bias="0.943"
         app:srcCompat="@drawable/ic_home"
         app:tint="@color/black" />
 
@@ -70,12 +70,10 @@
         android:layout_marginStart="151dp"
         android:layout_marginTop="31dp"
         android:layout_marginEnd="142dp"
-        android:layout_marginBottom="235dp"
         android:backgroundTint="@android:color/transparent"
         android:fontFamily="@font/cantora_one"
         android:text="Log out"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/homeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,6 +92,19 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_camera"
         app:tint="@color/black" />
+
+    <ImageView
+        android:id="@+id/profileButtonEditProfilePage"
+        android:layout_width="50dp"
+        android:layout_height="51dp"
+        android:tint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.609"
+        app:layout_constraintStart_toEndOf="@+id/homeButtonEditProfilePage"
+        app:layout_constraintTop_toBottomOf="@+id/logOutButton"
+        app:layout_constraintVertical_bias="0.921"
+        app:srcCompat="@drawable/ic_profile" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
