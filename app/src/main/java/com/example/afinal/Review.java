@@ -4,14 +4,20 @@ import android.media.Rating;
 
 public class Review {
     public User user;
+    public String username;
     public String reviewText;
-    Rating rating;
+    float rating;
     public void setReviewText(String reviewText) {
         this.reviewText = reviewText;
     }
 
-    public Review(User user, String reviewText, Rating rating) {
-        this.user = user;
+//    public Review(User user, String reviewText, float rating) {
+//        this.user = user;
+//        this.reviewText = reviewText;
+//        this.rating = rating;
+//    }
+    public Review(String username, String reviewText, float rating){
+        this.username = username;
         this.reviewText = reviewText;
         this.rating = rating;
     }
@@ -24,7 +30,7 @@ public class Review {
         return reviewText;
     }
 
-    public Rating getRating() {
+    public float getRating() {
         return rating;
     }
 }

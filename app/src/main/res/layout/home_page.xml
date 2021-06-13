@@ -12,65 +12,57 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="#FFFFFF"
         android:backgroundTintMode="screen"
         android:iconifiedByDefault="false"
         android:queryHint="Search for restaurants"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewHomePage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/recyclerViewHomePage"
         android:layout_width="match_parent"
         android:layout_height="580dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-
+        android:layout_margin="3dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchView"
-        app:layout_constraintVertical_bias="0.234" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="409dp"
         android:layout_height="64dp"
-        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView">
-
-        <ImageView
-            android:id="@+id/homeButtonHomePage"
-            android:layout_width="39dp"
-            android:layout_height="34dp"
-            android:layout_marginStart="92dp"
-            android:onClick="onHomeButtonClick"
-            app:tint="#000000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.066"
-            app:srcCompat="@drawable/ic_home" />
+        app:layout_constraintTop_toBottomOf="@+id/recyclerViewHomePage">
 
         <ImageView
             android:id="@+id/profileButtonHomePage"
-            android:layout_width="49dp"
-            android:layout_height="34dp"
-            app:tint="#000000"
+            android:layout_width="67dp"
+            android:layout_height="39dp"
+            android:layout_marginBottom="24dp"
+            android:foregroundGravity="center"
             android:onClick="onProfileButtonClick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toEndOf="@+id/homeButtonHomePage"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.066"
-            app:srcCompat="@drawable/ic_profile" />
+            app:layout_constraintVertical_bias="1.0"
+            app:srcCompat="@drawable/ic_profile"
+            app:tint="#000000" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

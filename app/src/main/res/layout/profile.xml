@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/blueBackground"
-        android:layout_width="413dp"
-        android:layout_height="214dp"
+        android:layout_width="410dp"
+        android:layout_height="142dp"
         android:layout_marginBottom="7dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +28,7 @@
         android:backgroundTint="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/blueBackground"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/profilePicture"
         app:layout_constraintTop_toTopOf="@+id/blueBackground"
         app:layout_constraintVertical_bias="0.231"
         app:srcCompat="@drawable/edit"
@@ -37,25 +37,28 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/profileRecyclerView"
-        android:layout_width="408dp"
-        android:layout_height="427dp"
-        android:layout_marginTop="72dp"
+        android:layout_width="match_parent"
+        android:layout_height="504dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/blueBackground" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="1.0" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:layout_marginBottom="6dp"
         android:clickable="false"
         android:clipChildren="false"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/profileRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/blueBackground">
 
@@ -63,9 +66,9 @@
             android:id="@+id/profileShowReviewButton"
             android:layout_width="128dp"
             android:layout_height="48dp"
-            android:layout_margin="5dp"
             android:backgroundTint="@android:color/background_dark"
             android:fontFamily="@font/cantora_one"
+            android:onClick="onReviewsButtonClick"
             android:text="Reviews"
             android:textColor="@color/white" />
 
@@ -75,6 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:backgroundTint="@android:color/transparent"
+            android:onClick="onFavouriteButtonClick"
             android:text="Favourites"
             android:textColor="@color/black" />
     </LinearLayout>
