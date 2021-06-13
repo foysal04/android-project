@@ -35,35 +35,43 @@
         app:layout_constraintTop_toBottomOf="@+id/searchView"
         app:layout_constraintVertical_bias="0.234" />
 
-    <ImageView
-        android:id="@+id/homeButtonHomePage"
-        android:layout_width="39dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="90dp"
-        android:layout_marginBottom="16dp"
-        android:tint="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/profileButtonHomePage"
-        app:layout_constraintHorizontal_bias="0.644"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
-        app:layout_constraintVertical_bias="0.9"
-        app:srcCompat="@drawable/ic_home" />
-
-    <ImageView
-        android:id="@+id/profileButtonHomePage"
-        android:layout_width="49dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="84dp"
-        android:layout_marginBottom="16dp"
-        android:tint="#000000"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="409dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/ic_profile" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView">
+
+        <ImageView
+            android:id="@+id/homeButtonHomePage"
+            android:layout_width="39dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="92dp"
+            android:onClick="onHomeButtonClick"
+            app:tint="#000000"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.066"
+            app:srcCompat="@drawable/ic_home" />
+
+        <ImageView
+            android:id="@+id/profileButtonHomePage"
+            android:layout_width="49dp"
+            android:layout_height="34dp"
+            app:tint="#000000"
+            android:onClick="onProfileButtonClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toEndOf="@+id/homeButtonHomePage"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.066"
+            app:srcCompat="@drawable/ic_profile" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
