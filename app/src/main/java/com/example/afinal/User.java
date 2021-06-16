@@ -6,18 +6,20 @@ import java.util.ArrayList;
 
 public class User {
     String username;
+    String email;
     Image profilePicture;
     ArrayList<Review> yourReviews;
     ArrayList<Restaurant> favouriteRestaurants;
-    boolean isCreated = false;
     public User(String username) {
-        if(isCreated) return;
         this.username = username;
         yourReviews = new ArrayList<>();
         favouriteRestaurants = new ArrayList<>();
-        isCreated = true;
     }
-
+    public User(String username, String email){
+        this.username = username;
+        yourReviews = new ArrayList<>();
+        favouriteRestaurants = new ArrayList<>();
+    }
     public String getUsername() {
         return username;
     }

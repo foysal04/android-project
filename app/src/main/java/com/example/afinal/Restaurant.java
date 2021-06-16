@@ -74,7 +74,9 @@ public class Restaurant implements Parcelable {
     public ArrayList<Review> getRestaurantReviews() {
         return restaurantReviews;
     }
-
+    public void addReview(Review review){
+        restaurantReviews.add(review);
+    }
 
     @Override
     public int describeContents() {

@@ -8,7 +8,7 @@
     >
 
     <ImageView
-        android:id="@+id/blueBackground"
+        android:id="@+id/coverPhoto"
         android:layout_width="413dp"
         android:layout_height="214dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,6 +21,7 @@
         android:id="@+id/editNameButton"
         android:layout_width="129dp"
         android:layout_height="59dp"
+        android:onClick="onEditNameClick"
         android:layout_marginStart="148dp"
         android:layout_marginTop="120dp"
         android:layout_marginEnd="149dp"
@@ -32,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/blueBackground"
+        app:layout_constraintTop_toBottomOf="@+id/coverPhoto"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
@@ -40,6 +41,7 @@
         android:layout_width="128dp"
         android:layout_height="59dp"
         android:layout_marginStart="149dp"
+        android:onClick="onLogOutClick"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="148dp"
         android:layout_marginBottom="216dp"
@@ -58,11 +60,11 @@
         android:layout_width="38dp"
         android:layout_height="34dp"
         android:layout_marginTop="180dp"
-        app:layout_constraintBottom_toBottomOf="@+id/blueBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/coverPhoto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.096"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="@+id/blueBackground"
+        app:layout_constraintTop_toTopOf="@+id/coverPhoto"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_camera"
         app:tint="@color/black" />
@@ -71,13 +73,45 @@
         android:id="@+id/imageView4"
         android:layout_width="149dp"
         android:layout_height="112dp"
-        app:layout_constraintBottom_toBottomOf="@+id/blueBackground"
-        app:layout_constraintEnd_toEndOf="@+id/blueBackground"
+        app:layout_constraintBottom_toBottomOf="@+id/coverPhoto"
+        app:layout_constraintEnd_toEndOf="@+id/coverPhoto"
         app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="@+id/blueBackground"
+        app:layout_constraintStart_toStartOf="@+id/coverPhoto"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/yelp" />
+
+    <EditText
+        android:id="@+id/editNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:textColor="@color/black"
+        android:ems="10"
+        android:fontFamily="@font/cantora_one"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/editNameButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/coverPhoto" />
+
+    <Button
+        android:id="@+id/saveNameButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save name"
+        android:textColor="@color/black"
+        android:shadowColor="@color/black"
+        android:background="@color/white"
+        android:visibility="invisible"
+        android:clickable="false"
+        android:onClick="onSaveNameClick"
+        app:layout_constraintBottom_toBottomOf="@+id/editNameButton"
+        app:layout_constraintEnd_toEndOf="@+id/editNameButton"
+        app:layout_constraintStart_toStartOf="@+id/editNameButton"
+        app:layout_constraintTop_toTopOf="@+id/editNameButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

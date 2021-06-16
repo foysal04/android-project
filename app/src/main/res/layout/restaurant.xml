@@ -5,18 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:srcCompat="@tools:sample/avatars" />
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -27,7 +15,7 @@
         android:outlineSpotShadowColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+        app:layout_constraintTop_toBottomOf="@+id/restaurantProfilePicture">
 
         <TextView
             android:id="@+id/restaurantNameRestaurantPage"
@@ -48,15 +36,16 @@
             android:layout_width="157dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:progressTint="@color/black"
             android:layout_weight="1"
             android:numStars="5"
             android:outlineAmbientShadowColor="@color/black"
+            android:progressTint="@color/black"
             android:textAlignment="center" />
     </LinearLayout>
 
     <Button
         android:id="@+id/addReviewButton"
+        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="158dp"
@@ -119,5 +108,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userReviewTextView"
         app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/restaurantProfilePicture"
+        android:layout_width="413dp"
+        android:layout_height="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/yelp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

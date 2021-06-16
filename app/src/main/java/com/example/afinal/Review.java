@@ -7,6 +7,7 @@ public class Review {
     public String username;
     public String reviewText;
     float rating;
+    public Restaurant restaurant;
     public void setReviewText(String reviewText) {
         this.reviewText = reviewText;
     }
@@ -20,6 +21,13 @@ public class Review {
         this.username = username;
         this.reviewText = reviewText;
         this.rating = rating;
+    }
+
+    public Review(User user, String reviewText, float rating, Restaurant restaurant) {
+        this.user = user;
+        this.reviewText = reviewText;
+        this.rating = rating;
+        this.restaurant = restaurant;
     }
 
     public User getUser() {
