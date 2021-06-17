@@ -13,8 +13,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Restaurant implements Parcelable {
-    Context mContext;
-    public String restaurantName;
+    public String  restaurantName;
     public Location restaurantLocation;
     public float avgRating;
     public ArrayList<Review> restaurantReviews;

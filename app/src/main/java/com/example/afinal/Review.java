@@ -28,6 +28,7 @@ public class Review {
         this.reviewText = reviewText;
         this.rating = rating;
         this.restaurant = restaurant;
+        this.username = user.username;
     }
 
     public User getUser() {
