@@ -40,10 +40,16 @@ public class Restaurant implements Parcelable {
         }
     };
 
-    public void initiateItems(){
+    private void initiateItems(){
 
         restaurantLocation = new Location(LocationManager.GPS_PROVIDER);
-        restaurantReviews = new ArrayList<>();
+
+        isCreated = true;
+        try {
+            restaurantImage.setImageResource(R.drawable.yelp);
+        } catch (Exception e){
+            System.out.println(e);
+        }
 
     }
 
@@ -51,12 +57,20 @@ public class Restaurant implements Parcelable {
         if(isCreated) return;
         this.restaurantName = restaurantName;
         restaurantReviews = new ArrayList<>();
-        isCreated = true;
-        initiateItems();
+        restaurantReviews.add(new Review("Foysal", "This is awesome", 4));
+        this.initiateItems();
     }
 
     public Location getRestaurantLocation() {
         return restaurantLocation;
+    }
+
+    public ImageView getRestaurantImage() {
+        return restaurantImage;
+    }
+
+    public void setRestaurantImage(ImageView restaurantImage) {
+        this.restaurantImage = restaurantImage;
     }
 
     public void setRestaurantLocation(Location restaurantLocation) {
