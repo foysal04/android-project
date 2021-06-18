@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "640588406769",
+    "firebase_url": "https://uniproject-7af1e-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "uniproject-7af1e",
+    "storage_bucket": "uniproject-7af1e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640588406769:android:471b974bf17708d808ae50",
+        "android_client_info": {
+          "package_name": "com.example.afinal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "640588406769-gmoluld6dkcsa0qne69qs276fp8e6qj1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqwIKzSvl8e3CyRYjoHDENvI69aEF4D-I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "640588406769-gmoluld6dkcsa0qne69qs276fp8e6qj1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
