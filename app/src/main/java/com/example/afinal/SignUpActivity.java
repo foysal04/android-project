@@ -106,6 +106,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    mUser = mAuth.getCurrentUser();
                                     mUser.sendEmailVerification();
                                     firestore.collection("Users")
                                             .document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid())

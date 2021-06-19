@@ -47,9 +47,13 @@ public class HomePageActivity extends AppCompatActivity {
 
     public void onProfileButtonClick(View view){
 
-        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        startActivity(intent);
+        // Run app 1st time, close and comment this part out
+        database.getFirebaseAuth().signOut();
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        // Uncomment this part when running 2nd time
+//        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//        startActivity(intent);
     }
 
     @SuppressLint("ResourceType")

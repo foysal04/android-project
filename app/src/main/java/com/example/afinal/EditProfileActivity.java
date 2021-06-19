@@ -102,6 +102,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Map<String, Object> data = documentSnapshot.getData();
+
                         editNameText.setText((String) data.get("Name"));
                     }
                 });
