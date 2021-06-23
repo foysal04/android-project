@@ -45,21 +45,18 @@
 
     <Button
         android:id="@+id/addReviewButton"
-        android:onClick="onLeaveReviewButtonCLick"
-        android:textColor="@color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="158dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="159dp"
+        android:layout_width="143dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
         android:backgroundTint="#07185A"
         android:fontFamily="@font/cantora_one"
         android:gravity="center"
         android:text="Leave a review"
-        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
         app:iconTint="#5A0606"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintEnd_toStartOf="@+id/addToFavouritesButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider"
         app:strokeColor="#2E0808"
@@ -100,10 +97,11 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewRestaurantPage"
         android:layout_width="match_parent"
-        android:layout_height="395dp"
+        android:layout_height="337dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userReviewTextView"
         app:layout_constraintVertical_bias="0.0" />
@@ -111,10 +109,42 @@
     <ImageView
         android:id="@+id/restaurantProfilePicture"
         android:layout_width="413dp"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/yelp" />
+
+    <Button
+        android:id="@+id/addToFavouritesButton"
+        android:layout_width="115dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="#ba1841"
+        android:fontFamily="@font/cantora_one"
+        android:text="+Favourites"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/addReviewButton"
+        app:layout_constraintEnd_toStartOf="@+id/locationButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/addReviewButton"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <Button
+        android:id="@+id/locationButton"
+        android:layout_width="87dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="16sp"
+        android:background="#517ee0"
+        android:fontFamily="@font/cantora_one"
+        android:text="Location"
+        app:layout_constraintBottom_toBottomOf="@+id/addReviewButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/addToFavouritesButton"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

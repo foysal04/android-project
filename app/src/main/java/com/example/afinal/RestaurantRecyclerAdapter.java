@@ -42,6 +42,11 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
         Log.d(TAG, "onBindViewHolder: " + Integer.toString(position));
         holder.restaurantName.setText(restaurantArrayList.get(position).restaurantName);
         holder.ratingBar.setRating(restaurantArrayList.get(position).avgRating);
+
+        Log.i("Context", mContext.toString());
+        Log.i("Holder", holder.toString());
+        Log.i("Parent", holder.parentLayout.toString());
+
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

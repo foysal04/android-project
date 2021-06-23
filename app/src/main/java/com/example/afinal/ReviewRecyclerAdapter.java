@@ -1,6 +1,7 @@
 package com.example.afinal;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +42,17 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<ReviewRecyclerAd
         holder.reviewerName.setText(reviewArrayList.get(position).username);
         holder.ratingBar.setRating(reviewArrayList.get(position).rating);
         holder.reviewText.setText(reviewArrayList.get(position).reviewText);
+
+//        Log.i("Context", mContext.toString());
+//        Log.i("Holder", holder.toString());
+//        Log.i("Parent", holder.parentLayout.toString());
+//        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Log.i("Context", mContext.toString());
+//            }
+//        });
+
     }
 
     @Override

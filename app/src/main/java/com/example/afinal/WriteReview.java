@@ -99,49 +99,36 @@ public class WriteReview extends AppCompatActivity implements View.OnClickListen
 
         DocumentReference userRef = firestore.collection("Users")
                                             .document(uid);
+        Map<String, Object> data = new HashMap<>();
+        String username = Database.username;
+        Review review = new Review(username, reviewBody, rating);
 
-        userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if(value.exists())
-                {
-                    Map<String, Object> data = new HashMap<>();
-                    data = value.getData();
+        data.put("Name", username);
+        data.put("Rating", rating);
+        data.put("Body", reviewBody);
 
-                    String username = (String) data.get("username");
-                    Review review = new Review(username, reviewBody, rating);
+        reviewRef.add(data)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.i("DocumentSnapshot ID: ", documentReference.getId());
+                        data.clear();
+                        data.put("Restaurant", restaurantName);
+                        data.put("Rating", rating);
+                        data.put("Body", reviewBody);
+                        data.put("Id", documentReference.getId());
 
-                    data.clear();
-                    data.put("restaurant", restaurantName);
-                    data.put("rating", rating);
-                    data.put("body", reviewBody);
+                        userRef.collection("Reviews")
+                                .add(data)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Log.i("DocumentSnapshot ID: ", documentReference.getId());
+                                    }
+                                });
+                    }
+                });
 
-                    userRef.collection("Reviews")
-                            .add(data)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.i("DocumentSnapshot ID: ", documentReference.getId());
-                                }
-                            });
-                    data.clear();
-                    data.put("username", username);
-                    data.put("rating", rating);
-                    data.put("body", reviewBody);
-
-                    reviewRef.add(data)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.i("DocumentSnapshot ID: ", documentReference.getId());
-                                }
-                            });
-                }
-            }
-        });
-
-        Intent intent = new Intent(this, RestaurantActivity.class);
-        intent.putExtra("restaurant_name", restaurantName);
-        startActivity(intent);
+        finish();
     }
 }

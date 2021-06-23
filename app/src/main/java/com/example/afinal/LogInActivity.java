@@ -1,6 +1,7 @@
 package com.example.afinal;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -17,7 +18,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -97,6 +105,19 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                                     FirebaseUser mUser = mAuth.getCurrentUser();
                                     assert mUser != null;
                                     if (mUser.isEmailVerified()) {
+                                        DocumentReference userRef = database.getFirestore().collection("Users")
+                                                .document(mAuth.getCurrentUser().getUid());
+
+                                        userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                                Map<String, Object> data = new HashMap<>();
+                                                data = value.getData();
+
+                                                Database.username = (String) data.get("username");
+                                            }
+                                        });
+
                                         Toast.makeText(LogInActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
 //                                        ManageUser.clear();
                                         startActivity(new Intent(getApplicationContext(), HomePageActivity.class));

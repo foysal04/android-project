@@ -37,25 +37,6 @@ public class HomePageActivity extends AppCompatActivity {
     RestaurantRecyclerAdapter adapter;
     ArrayList<String> restNames = new ArrayList<>();
 
-    private void initRestaurantRecyclerView(ArrayList<Restaurant> list){
-        Log.d(TAG, "initRecyclerView: initialized recycler view");
-        recyclerView = findViewById(R.id.recyclerViewHomePage);
-        adapter = new RestaurantRecyclerAdapter(list, this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
-
-    public void onProfileButtonClick(View view){
-
-        // Run app 1st time, close and comment this part out
-        database.getFirebaseAuth().signOut();
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        // Uncomment this part when running 2nd time
-//        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//        startActivity(intent);
-    }
-
     @SuppressLint("ResourceType")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,27 +54,30 @@ public class HomePageActivity extends AppCompatActivity {
                 initRestaurantRecyclerView(restaurantArrayList);
             }
         });
-
     }
 
-//    @Override
-//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        String name = (String) parent.getItemAtPosition(position);
-//        getRestaurantData(name, new FirebaseCallback() {
-//            @Override
-//            public void onCallBack(List<String> list) {
-//                Log.i("Tmp", "This is just empty");
-//            }
-//        });
-//    }
+    private void initRestaurantRecyclerView(ArrayList<Restaurant> list){
+        Log.d(TAG, "initRecyclerView: initialized recycler view");
+        recyclerView = findViewById(R.id.recyclerViewHomePage);
+        adapter = new RestaurantRecyclerAdapter(list, this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    public void onProfileButtonClick(View view){
+
+        Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+    }
 
     private interface FirebaseCallback {
         void onCallBack(List<Restaurant> list);
     }
-
+    // Rework data and comeback here to resolve issues 1,2 and 3
     private void getRestaurantNames(final FirebaseCallback firebaseCallback)
     {
-        DocumentReference restNameRef = mainRef.document("Restaurant Names");
+        DocumentReference restNameRef = mainRef.document("Restaurants");
 
         restNameRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
@@ -105,48 +89,13 @@ public class HomePageActivity extends AppCompatActivity {
 
                     Map<String, Object> map = new HashMap<>();
                     map = value.getData();
-                    tmpList = (List<String>) map.get("Names");
+                    tmpList = (List<String>) map.get("Restaurant_names");
                     List<Restaurant> send = new ArrayList<>();
 
                     for(int i = 0;i<tmpList.size();i++)
-                        send.add(new Restaurant(tmpList.get(i), 5.0F));
+                        send.add(new Restaurant(tmpList.get(i), 3.0F));
                     firebaseCallback.onCallBack(send);
                 }
-            }
-        });
-    }
-
-    private void getRestaurantData(String name, final FirebaseCallback firebaseCallback)
-    {
-        ArrayList<Review> reviews = new ArrayList<Review>();
-        DocumentReference restDataRef = mainRef.document("Restaurants").collection(name).document("Info");
-        CollectionReference reviewRef = restDataRef.collection("Reviews");
-
-        reviewRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                if(!value.isEmpty())
-                {
-                    for(DocumentSnapshot doc: value.getDocuments())
-                    {
-                        reviews.add(new Review((String) doc.get("Title"), (String) doc.get("Body"), 5.0F));
-                    }
-                }
-                restDataRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                        if(value.exists())
-                        {
-                            Log.i("RestData", reviews.toString());
-                            Map<String, Restaurant> map = new HashMap<>();;
-                            Restaurant data = new Restaurant(name,5.0F);
-//                            Log.i("data", data.getRestaurantLocation() + " " + data.getRestaurant());
-                            Intent intent = new Intent(getApplicationContext(), RestaurantActivity.class);
-                            intent.putExtra("data", data);
-                            startActivity(intent);
-                        }
-                    }
-                });
             }
         });
     }

@@ -64,7 +64,6 @@
             android:layout_height="48dp"
             android:backgroundTint="@android:color/background_dark"
             android:fontFamily="@font/cantora_one"
-            android:onClick="onReviewsButtonClick"
             android:text="Reviews"
             android:textColor="@color/white" />
 
@@ -74,7 +73,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:backgroundTint="@android:color/transparent"
-            android:onClick="onFavouriteButtonClick"
             android:text="Favourites"
             android:textColor="@color/black" />
     </LinearLayout>

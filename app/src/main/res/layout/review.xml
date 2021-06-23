@@ -19,9 +19,9 @@
         android:fontFamily="@font/cantora_one"
         android:gravity="center"
         android:text="Reviewer Name"
-        android:textColor="@color/black"
         android:textAlignment="textStart"
-        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/reviewRatingBar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
