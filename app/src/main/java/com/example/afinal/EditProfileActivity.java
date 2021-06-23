@@ -43,7 +43,7 @@ public class EditProfileActivity extends AppCompatActivity {
 
     Database database = Database.getInstance();
     FirebaseFirestore firestore = database.getFirestore();
-    FirebaseUser mUser = database.getUser();
+    FirebaseUser mUser = database.getFirebaseAuth().getCurrentUser();
     DocumentReference mainRef = firestore.collection("Users").document(mUser.getUid());
     FirebaseAuth mAuth = database.getFirebaseAuth();
 

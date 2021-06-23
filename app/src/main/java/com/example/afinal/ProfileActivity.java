@@ -34,7 +34,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     Database database = Database.getInstance();
     FirebaseFirestore firestore = database.getFirestore();
-    FirebaseUser mUser = database.getUser();
+    FirebaseUser mUser = database.getFirebaseAuth().getCurrentUser();
 
     CollectionReference mainRef = firestore.collection("Users");
 
