@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,15 +45,15 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<ReviewRecyclerAd
         holder.ratingBar.setRating(reviewArrayList.get(position).rating);
         holder.reviewText.setText(reviewArrayList.get(position).reviewText);
 
-//        Log.i("Context", mContext.toString());
-//        Log.i("Holder", holder.toString());
-//        Log.i("Parent", holder.parentLayout.toString());
-//        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.i("Context", mContext.toString());
-//            }
-//        });
+        Log.i("Context", mContext.toString());
+        Log.i("Holder", holder.toString());
+        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Context", mContext.toString());
+                Toast.makeText(mContext,"how are you", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -71,6 +73,7 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<ReviewRecyclerAd
             reviewerName = itemView.findViewById(R.id.reviewerNameReview);
             ratingBar = itemView.findViewById(R.id.reviewRatingBar);
             reviewText = itemView.findViewById(R.id.reviewText);
+            parentLayout = itemView.findViewById(R.id.reviewParentLayout);
         }
     }
 }

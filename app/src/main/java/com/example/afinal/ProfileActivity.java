@@ -217,13 +217,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
                 ArrayList<String> data = (ArrayList<String>) value.get("Favourites");
 
-                if(!data.isEmpty())
-                {
-                    for(int i = 0;i<data.size();i++)
-                        favourites.add(new Restaurant(data.get(i), 3.0F));
+               if(data!=null){
+                   if(!data.isEmpty())
+                   {
+                       for(int i = 0;i<data.size();i++)
+                           favourites.add(new Restaurant(data.get(i), 3.0F));
 
-                    firebaseCallback.onCallBack(favourites);
-                }
+                       firebaseCallback.onCallBack(favourites);
+                   }
+               }
             }
         });
     }
