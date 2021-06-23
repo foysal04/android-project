@@ -51,6 +51,7 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, RestaurantActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 Log.i("pos", String.valueOf(position));
                 intent.putExtra("restaurant_name", (String) holder.restaurantName.getText());
                 Log.i("name", (String) holder.restaurantName.getText());

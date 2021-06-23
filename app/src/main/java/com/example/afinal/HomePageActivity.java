@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -26,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class HomePageActivity extends AppCompatActivity {
+public class  HomePageActivity extends AppCompatActivity {
     private static final String TAG = "HomePageActivity";
 
     private ArrayList<Restaurant> restaurantArrayList = new ArrayList<>();
@@ -36,6 +38,7 @@ public class HomePageActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RestaurantRecyclerAdapter adapter;
     ArrayList<String> restNames = new ArrayList<>();
+    SearchView searchView;
 
     @SuppressLint("ResourceType")
     @Override
@@ -44,7 +47,11 @@ public class HomePageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_home_page);
-
+        try{
+            searchView = (SearchView) findViewById(R.id.searchView);
+        } catch (Exception e){
+            System.out.println(e);
+        }
         getRestaurantNames(new FirebaseCallback() {
             @Override
             public void onCallBack(List<Restaurant> list) {
@@ -54,6 +61,52 @@ public class HomePageActivity extends AppCompatActivity {
                 initRestaurantRecyclerView(restaurantArrayList);
             }
         });
+
+        try{
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+
+                    ArrayList<Restaurant> searchArrayList = new ArrayList<>();
+                    for(Restaurant p: restaurantArrayList){
+
+                        String tmpString = p.restaurantName.toUpperCase();
+                        String tmpNewText = query.toUpperCase();
+                        if(tmpString.contains(tmpNewText)){
+                            searchArrayList.add(p);
+                        }
+
+                    }
+                    adapter = new RestaurantRecyclerAdapter(searchArrayList, getApplicationContext());
+                    recyclerView.setAdapter(adapter);
+
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    Log.i(TAG, "onQueryTextChange: " + newText);
+                    ArrayList<Restaurant> searchArrayList = new ArrayList<>();
+                    for(Restaurant p: restaurantArrayList){
+
+                        String tmpString = p.restaurantName.toUpperCase();
+                        String tmpNewText = newText.toUpperCase();
+                        if(tmpString.contains(tmpNewText)){
+                            searchArrayList.add(p);
+                        }
+
+                    }
+                    adapter = new RestaurantRecyclerAdapter(searchArrayList, getApplicationContext());
+                    recyclerView.setAdapter(adapter);
+
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                    return false;
+                }
+            });
+        } catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     private void initRestaurantRecyclerView(ArrayList<Restaurant> list){

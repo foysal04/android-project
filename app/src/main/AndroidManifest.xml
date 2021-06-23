@@ -49,7 +49,7 @@
         <activity android:name=".WriteReview" />
         <activity android:name=".RestaurantActivity" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".ProfileActivity"  />
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".HomePageActivity" />
         <activity android:name=".LogInActivity" />
