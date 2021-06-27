@@ -2,65 +2,81 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/black"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
+        app:cardCornerRadius="8dp"
+        android:layout_marginBottom="8dp"
+        android:outlineAmbientShadowColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/restaurantProfilePicture"
+            android:layout_width="413dp"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/yelp" />
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
         android:orientation="horizontal"
         android:outlineAmbientShadowColor="@color/black"
         android:outlineSpotShadowColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/restaurantProfilePicture">
+        app:layout_constraintTop_toBottomOf="@+id/cardView5">
 
-        <TextView
-            android:id="@+id/restaurantNameRestaurantPage"
-            android:layout_width="192dp"
-            android:layout_height="55dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:fontFamily="@font/cantora_one"
-            android:gravity="center"
-            android:text="Restaurant Name"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="1">
 
-        <RatingBar
-            android:id="@+id/ratingBarRestaurantPage"
-            style="?android:attr/ratingBarStyleIndicator"
-            android:layout_width="157dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:numStars="5"
-            android:outlineAmbientShadowColor="@color/black"
-            android:progressTint="@color/black"
-            android:textAlignment="center" />
+            <TextView
+                android:id="@+id/restaurantNameRestaurantPage"
+                android:layout_width="192dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:fontFamily="@font/cantora_one"
+                android:gravity="center"
+                android:text="Restaurant Name"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp
+"
+            android:layout_weight="1">
+
+            <RatingBar
+                android:id="@+id/ratingBarRestaurantPage"
+                style="?android:attr/ratingBarStyleIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:numStars="5"
+                android:outlineAmbientShadowColor="@color/black"
+                android:progressTint="@color/black"
+                android:textAlignment="center" />
+        </androidx.cardview.widget.CardView>
+
     </LinearLayout>
-
-    <Button
-        android:id="@+id/addReviewButton"
-        android:layout_width="143dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:backgroundTint="#07185A"
-        android:fontFamily="@font/cantora_one"
-        android:gravity="center"
-        android:text="Leave a review"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:iconTint="#5A0606"
-        app:layout_constraintEnd_toStartOf="@+id/addToFavouritesButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        app:strokeColor="#2E0808"
-        app:strokeWidth="3dp" />
 
     <View
         android:id="@+id/divider"
@@ -68,83 +84,124 @@
         android:layout_height="3dp"
         android:layout_marginTop="67dp"
         android:background="?android:attr/listDivider"
-        android:backgroundTint="#000000"
-        android:foregroundTint="#000000"
-        android:foregroundTintMode="src_over"
+        android:backgroundTint="@color/black"
+        android:foregroundTint="@color/black"
+        android:foregroundTintMode="add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/linearLayout" />
 
-    <TextView
-        android:id="@+id/userReviewTextView"
-        android:layout_width="94dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="301dp"
-        android:gravity="center"
-        android:text="User reviews"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        android:backgroundTint="@android:color/transparent"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addReviewButton" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewRestaurantPage"
         android:layout_width="match_parent"
-        android:layout_height="337dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="340dp"
+        android:background="@color/black"
+        app:flow_horizontalBias="1.0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userReviewTextView"
+        app:layout_constraintTop_toBottomOf="@+id/tagsRecyclerView"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ImageView
-        android:id="@+id/restaurantProfilePicture"
-        android:layout_width="413dp"
+    <LinearLayout
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/yelp" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-    <Button
-        android:id="@+id/addToFavouritesButton"
-        android:layout_width="115dp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/addReviewButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#07185A"
+                android:fontFamily="@font/cantora_one"
+                android:text="Add review"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/addToFavouritesButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#ba1841"
+                android:fontFamily="@font/cantora_one"
+                android:text="+Favourites"
+                android:textSize="16sp" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/locationButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#517ee0"
+                android:fontFamily="@font/cantora_one"
+                android:text="Location"
+                android:textSize="16sp" />
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tagsRecyclerView"
+        android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#ba1841"
-        android:fontFamily="@font/cantora_one"
-        android:text="+Favourites"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/addReviewButton"
-        app:layout_constraintEnd_toStartOf="@+id/locationButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/addReviewButton"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-    <Button
-        android:id="@+id/locationButton"
-        android:layout_width="87dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:textSize="16sp"
-        android:background="#517ee0"
-        android:fontFamily="@font/cantora_one"
-        android:text="Location"
-        app:layout_constraintBottom_toBottomOf="@+id/addReviewButton"
+        android:layout_marginTop="4dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/addToFavouritesButton"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
+        app:layout_constraintHorizontal_bias="0.034"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:text="Tags:"
+        android:textColor="@color/white"
+        android:fontFamily="@font/cantora_one"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/tagsRecyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -40,13 +40,15 @@ public class RestaurantActivity extends AppCompatActivity implements View.OnClic
     FirebaseFirestore firestore = database.getFirestore();
     CollectionReference mainRef = firestore.collection("Establishments");
     RecyclerView recyclerView;
+    RecyclerView tagsView;
     String restaurantName;
     String uid;
     Button addReviewButton;
     Button addFavouriteButton;
     Button seeInfoButton;
-
+    ArrayList<String> tags;
     ReviewRecyclerAdapter adapter;
+    TagsRecyclerViewAdapter tagsAdapter;
 
 //    StorageReference storageReference =
 
@@ -72,6 +74,12 @@ public class RestaurantActivity extends AppCompatActivity implements View.OnClic
                 initReviewRecyclerView((ArrayList<Review>) list);
             }
         });
+
+        tags = new ArrayList<>();
+        tags.add("pizza");
+        tags.add("burger");
+        tags.add("chips");
+        initTags(tags);
 
         uid = Objects.requireNonNull(database.getFirebaseAuth().getCurrentUser()).getUid();
         firestore.collection("Users")
@@ -118,6 +126,21 @@ public class RestaurantActivity extends AppCompatActivity implements View.OnClic
         } catch (Exception e){
             System.out.println(e);
         }
+    }
+    //tags recycler view
+
+    private void initTags(ArrayList<String> tags){
+        try{
+            System.out.println("intialising tags");
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            tagsView = findViewById(R.id.tagsRecyclerView);
+            tagsAdapter = new TagsRecyclerViewAdapter(tags, getApplicationContext());
+            tagsView.setLayoutManager(layoutManager);
+            tagsView.setAdapter(tagsAdapter);
+        } catch (Exception e){
+            System.out.println(e);
+        }
+
     }
 
     @Override
