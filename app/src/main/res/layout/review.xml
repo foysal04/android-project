@@ -5,17 +5,39 @@
     android:id="@+id/reviewParentLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#161b24"
     android:layout_marginTop="6dp"
     android:layout_marginBottom="6dp"
     android:outlineAmbientShadowColor="@color/black">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardBackgroundColor="#E7F9FF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView4">
+
+        <TextView
+            android:id="@+id/reviewText"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/cantora_one"
+            android:gravity="center"
+            android:text="User review text goes here"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView3"
         android:layout_width="190dp"
         android:layout_height="32dp"
         android:layout_margin="8dp"
-        app:cardBackgroundColor="#587ff5"
         app:layout_constraintEnd_toStartOf="@+id/cardView4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,9 +46,8 @@
             android:id="@+id/reviewerNameReview"
             android:layout_width="match_parent"
             android:layout_height="32dp"
-            android:backgroundTint="@color/white"
-            android:fontFamily="@font/cantora_one"
             android:layout_marginLeft="4dp"
+            android:fontFamily="@font/cantora_one"
             android:gravity="center"
             android:text="Reviewer Name"
             android:textAlignment="textStart"
@@ -40,7 +61,6 @@
         android:layout_width="184dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        app:cardBackgroundColor="#587ff5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cardView3"
         app:layout_constraintTop_toTopOf="parent">
@@ -52,40 +72,19 @@
             android:layout_height="32dp"
             android:layout_marginEnd="4dp"
             android:progressTint="@color/black" />
+
     </androidx.cardview.widget.CardView>
 
     <View
         android:id="@+id/divider2"
         android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:layout_marginTop="8dp"
-        android:background="#182929"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView3" />
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:cardBackgroundColor="#cdedf7"
+        android:layout_height="3dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider2">
-
-        <TextView
-            android:id="@+id/reviewText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/cantora_one"
-            android:gravity="center"
-            android:text="User review text goes here"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toBottomOf="@+id/cardView6"
+        app:layout_constraintVertical_bias="0.016" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

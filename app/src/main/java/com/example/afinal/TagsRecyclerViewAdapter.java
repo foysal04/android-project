@@ -47,8 +47,6 @@ public class TagsRecyclerViewAdapter extends RecyclerView.Adapter<TagsRecyclerVi
         TextView tagsTextView;
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
-
-            tagsCardView = itemView.findViewById(R.id.tagsCardView);
             tagsTextView = itemView.findViewById(R.id.tagsItemTextView);
         }
     }
