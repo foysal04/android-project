@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">final</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="no_favs">You have no favourites yet.</string>
+    <string name="no_reviews">You haven\'t posted any reviews yet.</string>
+</resources>
