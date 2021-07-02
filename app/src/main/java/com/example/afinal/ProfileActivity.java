@@ -75,6 +75,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         favouritesButton = (Button) findViewById(R.id.profileShowFavouritesButton);
         profilePicture = (ImageView) findViewById(R.id.profilePicture);
         noFavourites = (TextView) findViewById(R.id.noFavouritesTextView);
+        noFavourites.setVisibility(View.INVISIBLE);
 //        noFavourites.setText(R.string.no_reviews);
 
         reviewsButton.setOnClickListener(this);
@@ -84,7 +85,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onCallBack(List<Review> list) {
                 initReviewRecyclerView((ArrayList<Review>) list);
-                noFavourites.setText(R.string.no_favs);
+                noFavourites.setText("You don't have any favourite yet");
             }
         });
         mainRef.document(uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {

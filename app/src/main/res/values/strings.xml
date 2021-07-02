@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">final</string>
     <string name="title_activity_maps">MapsActivity</string>
-<<<<<<< HEAD
-    <string name="no_favs">You have no favourites yet.</string>
-    <string name="no_reviews">You haven\'t posted any reviews yet.</string>
-=======
->>>>>>> ebd180e0db0085dd397bd752cf24978b88d7f0d1
+<!--<<<<<<< HEAD-->
+<!--    <string name="no_favs">You have no favourites yet.</string>-->
+<!--    <string name="no_reviews">You haven't posted any reviews yet.</string>-->
+<!--=======-->
+<!--&gt;>>>>>> -->
 </resources>
