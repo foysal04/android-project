@@ -178,6 +178,7 @@ public class EditProfileActivity extends AppCompatActivity {
     public void onLogOutClick(View view){
         Intent intent = new Intent(getApplicationContext(), LogInActivity.class);
         mAuth.signOut();
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
