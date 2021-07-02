@@ -1,16 +1,7 @@
 <resources>
-    <string name="app_name">final</string>
+    <string name="app_name">Find places</string>
     <string name="title_activity_maps">MapsActivity</string>
-<<<<<<< HEAD
 
     <string name="no_favs">You have no favourites yet.</string>
     <string name="no_reviews">You haven\'t posted any reviews yet.</string>
-
-=======
-<!--<<<<<<< HEAD-->
-<!--    <string name="no_favs">You have no favourites yet.</string>-->
-<!--    <string name="no_reviews">You haven't posted any reviews yet.</string>-->
-<!--=======-->
-<!--&gt;>>>>>> -->
->>>>>>> 9681df3771bfd15c5440b956bc1099356affd983
 </resources>
