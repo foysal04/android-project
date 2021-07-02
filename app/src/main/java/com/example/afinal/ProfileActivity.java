@@ -19,7 +19,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+<<<<<<< HEAD
 import com.google.firebase.auth.FirebaseAuth;
+=======
+>>>>>>> ebd180e0db0085dd397bd752cf24978b88d7f0d1
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -43,8 +46,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     String uid;
 
     Database database = Database.getInstance();
+<<<<<<< HEAD
     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     FirebaseUser mUser = FirebaseAuth.getInstance().getCurrentUser();
+=======
+    FirebaseFirestore firestore = database.getFirestore();
+    FirebaseUser mUser = database.getFirebaseAuth().getCurrentUser();
+>>>>>>> ebd180e0db0085dd397bd752cf24978b88d7f0d1
 
     CollectionReference mainRef = firestore.collection("Users");
 
@@ -61,8 +69,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     ImageView profilePicture;
 
+<<<<<<< HEAD
     TextView noFavourites;
 
+=======
+>>>>>>> ebd180e0db0085dd397bd752cf24978b88d7f0d1
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,8 +85,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         reviewsButton = (Button) findViewById(R.id.profileShowReviewButton);
         favouritesButton = (Button) findViewById(R.id.profileShowFavouritesButton);
         profilePicture = (ImageView) findViewById(R.id.profilePicture);
+<<<<<<< HEAD
         noFavourites = (TextView) findViewById(R.id.noFavouritesTextView);
 //        noFavourites.setText(R.string.no_reviews);
+=======
+>>>>>>> ebd180e0db0085dd397bd752cf24978b88d7f0d1
 
         reviewsButton.setOnClickListener(this);
         favouritesButton.setOnClickListener(this);
@@ -84,7 +98,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onCallBack(List<Review> list) {
                 initReviewRecyclerView((ArrayList<Review>) list);
+<<<<<<< HEAD
                 noFavourites.setText(R.string.no_favs);
+=======
+>>>>>>> ebd180e0db0085dd397bd752cf24978b88d7f0d1
             }
         });
         mainRef.document(uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -186,8 +203,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             restaurantAdapter = new RestaurantRecyclerAdapter(list, this);
             recyclerViewRestaurant.setAdapter(restaurantAdapter);
             recyclerViewRestaurant.setLayoutManager(new LinearLayoutManager(this));
+<<<<<<< HEAD
             noFavourites.setVisibility(View.INVISIBLE);
             Log.i("empty", "not empty");
+=======
+>>>>>>> ebd180e0db0085dd397bd752cf24978b88d7f0d1
         }
     }
 
@@ -202,7 +222,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             reviewAdapter = new ReviewRecyclerAdapter(list, this);
             recyclerViewReview.setAdapter(reviewAdapter);
             recyclerViewReview.setLayoutManager(new LinearLayoutManager(this));
+<<<<<<< HEAD
             noFavourites.setVisibility(View.INVISIBLE);
+=======
+>>>>>>> ebd180e0db0085dd397bd752cf24978b88d7f0d1
         }
     }
 
@@ -216,10 +239,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                     getReviews(new FirebaseCallbackReviews() {
                         @Override
                         public void onCallBack(List<Review> list) {
+<<<<<<< HEAD
                             if(!list.isEmpty()) {
                                 noFavourites.setVisibility(View.INVISIBLE);
                                 initReviewRecyclerView((ArrayList<Review>) list);
                             }
+=======
+                            initReviewRecyclerView((ArrayList<Review>) list);
+>>>>>>> ebd180e0db0085dd397bd752cf24978b88d7f0d1
                         }
                     });
                 } catch (Exception e){
@@ -233,10 +260,14 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                     getFavourites(new FirebaseCallbackFavourites() {
                         @Override
                         public void onCallBack(List<Restaurant> list) {
+<<<<<<< HEAD
                             if(!list.isEmpty()) {
                                 noFavourites.setVisibility(View.INVISIBLE);
                                 initFavouriteRecyclerView((ArrayList<Restaurant>) list);
                             }
+=======
+                            initFavouriteRecyclerView((ArrayList<Restaurant>) list);
+>>>>>>> ebd180e0db0085dd397bd752cf24978b88d7f0d1
                         }
                     });
                 } catch (Exception e){
@@ -272,10 +303,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                             reviews.add(new Review((String) doc.get("Restaurant"), (String) doc.get("Body"),
                                     rating, (String) doc.get("Id"), (String) doc.get("Restaurant")));
                         }
+<<<<<<< HEAD
                         if(reviews.isEmpty())
                             Log.i("empty", "is empty");
                         else
                             Log.i("empty", "not empty");
+=======
+>>>>>>> ebd180e0db0085dd397bd752cf24978b88d7f0d1
                         firebaseCallback.onCallBack(reviews);
                     }
                     catch (Exception e)
@@ -305,10 +339,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                         Float rating = Float.valueOf(values.get("Rating"));
                         favourites.add(new Restaurant(values.get("Name"), rating, values.get("Image")));
                     }
+<<<<<<< HEAD
                     if(favourites.isEmpty())
                         Log.i("empty", "is empty");
                     else
                         Log.i("empty", "not empty");
+=======
+>>>>>>> ebd180e0db0085dd397bd752cf24978b88d7f0d1
 
                     firebaseCallback.onCallBack(favourites);
                 }
