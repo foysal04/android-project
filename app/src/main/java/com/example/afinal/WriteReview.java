@@ -113,7 +113,7 @@ public class WriteReview extends AppCompatActivity implements View.OnClickListen
         }
 
         if(requestCode.equals("write")) {
-
+            Log.i("req_code", requestCode);
             userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -150,8 +150,9 @@ public class WriteReview extends AppCompatActivity implements View.OnClickListen
 
         else if(requestCode.equals("update"))
         {
+            Log.i("req_code", requestCode);
             String id = intent.getStringExtra("id");
-
+            Log.i("req_id", id);
             data.put("Name", username);
             data.put("Rating", rating);
             data.put("Body", reviewBody);

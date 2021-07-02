@@ -87,11 +87,8 @@ public class SearchResultActivity extends AppCompatActivity {
         String queryLower = query.toLowerCase();
         Log.i("query", query);
 
-        Query nameQuery = nameRef.whereGreaterThanOrEqualTo("Query_name", queryLower)
-                .whereLessThanOrEqualTo("Query_name", queryLower+"\\uF7FF");
-        Query tagQuery = nameRef.whereArrayContains("Tags", queryLower)
-                .whereGreaterThanOrEqualTo("Query_name", queryLower)
-                .whereLessThanOrEqualTo("Query_name", queryLower+"\\uF7FF");
+        Query nameQuery = nameRef.whereGreaterThanOrEqualTo("Query_name", queryLower);
+        Query tagQuery = nameRef.whereArrayContains("Tags", queryLower);
 
 //        Query foo = nameRef.
         ArrayList<Restaurant> restaurants = new ArrayList<>();
