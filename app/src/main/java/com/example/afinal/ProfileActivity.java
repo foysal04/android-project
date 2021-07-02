@@ -61,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     ImageView profilePicture;
 
-    TextView noFavourites;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +74,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         reviewsButton = (Button) findViewById(R.id.profileShowReviewButton);
         favouritesButton = (Button) findViewById(R.id.profileShowFavouritesButton);
         profilePicture = (ImageView) findViewById(R.id.profilePicture);
-        noFavourites = (TextView) findViewById(R.id.noFavouritesTextView);
-        noFavourites.setVisibility(View.INVISIBLE);
-//        noFavourites.setText(R.string.no_reviews);
+
 
         reviewsButton.setOnClickListener(this);
         favouritesButton.setOnClickListener(this);
@@ -85,7 +83,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onCallBack(List<Review> list) {
                 initReviewRecyclerView((ArrayList<Review>) list);
-                noFavourites.setText("You don't have any favourite yet");
+
             }
         });
         mainRef.document(uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -187,7 +185,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             restaurantAdapter = new RestaurantRecyclerAdapter(list, this);
             recyclerViewRestaurant.setAdapter(restaurantAdapter);
             recyclerViewRestaurant.setLayoutManager(new LinearLayoutManager(this));
-            noFavourites.setVisibility(View.INVISIBLE);
+
             Log.i("empty", "not empty");
         }
     }
@@ -198,13 +196,15 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void initReviewRecyclerView(ArrayList<Review> list){
+        System.out.println("called");
         if (!list.isEmpty()) {
             recyclerViewReview = findViewById(R.id.profileRecyclerView);
             reviewAdapter = new ReviewRecyclerAdapter(list, this);
             recyclerViewReview.setAdapter(reviewAdapter);
             recyclerViewReview.setLayoutManager(new LinearLayoutManager(this));
-            noFavourites.setVisibility(View.INVISIBLE);
+
         }
+
     }
 
     @Override
@@ -218,7 +218,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                         @Override
                         public void onCallBack(List<Review> list) {
                             if(!list.isEmpty()) {
-                                noFavourites.setVisibility(View.INVISIBLE);
+
                                 initReviewRecyclerView((ArrayList<Review>) list);
                             }
                         }
@@ -235,7 +235,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                         @Override
                         public void onCallBack(List<Restaurant> list) {
                             if(!list.isEmpty()) {
-                                noFavourites.setVisibility(View.INVISIBLE);
+
                                 initFavouriteRecyclerView((ArrayList<Restaurant>) list);
                             }
                         }
