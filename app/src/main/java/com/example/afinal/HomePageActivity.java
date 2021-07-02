@@ -130,7 +130,9 @@ public class  HomePageActivity extends AppCompatActivity {
         {
             Intent intent = new Intent(HomePageActivity.this, SearchResultActivity.class);
             intent.putExtra("query", query);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
+            finish();
         }
     }
 
@@ -138,7 +140,9 @@ public class  HomePageActivity extends AppCompatActivity {
 
         Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        finish();
     }
 
     private interface RestaurantListCallback {

@@ -163,6 +163,13 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         finishAfterTransition();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(this, HomePageActivity.class));
+        finish();
+    }
+
     private void setUsername()
     {
         DocumentReference userRef = mainRef.document(uid);
@@ -192,6 +199,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     public void onEditProfileButtonClick(View view){
         Intent intent = new Intent(getApplicationContext(), EditProfileActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
@@ -204,7 +212,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             recyclerViewReview.setLayoutManager(new LinearLayoutManager(this));
 
         }
-
     }
 
     @Override

@@ -76,6 +76,8 @@ public class SearchResultActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        startActivity(new Intent(this, HomePageActivity.class));
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         finish();
     }
 
