@@ -61,10 +61,10 @@
             android:id="@+id/profileShowReviewButton"
             android:layout_width="128dp"
             android:layout_height="48dp"
-            android:backgroundTint="@android:color/background_dark"
+            android:backgroundTint="@android:color/transparent"
             android:fontFamily="@font/cantora_one"
             android:text="Reviews"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/profileShowFavouritesButton"
@@ -101,20 +101,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/coverPhoto" />
-
-    <TextView
-        android:id="@+id/noFavouritesTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="No favourites or reviews"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/profileRecyclerView"
-        app:layout_constraintEnd_toEndOf="@+id/profileRecyclerView"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/profileRecyclerView"
-        app:layout_constraintVertical_bias="0.414" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
