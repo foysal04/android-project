@@ -81,6 +81,12 @@ public class WriteReview extends AppCompatActivity implements View.OnClickListen
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(WriteReview.this, ProfileActivity.class));
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
         finishAfterTransition();
@@ -161,49 +167,6 @@ public class WriteReview extends AppCompatActivity implements View.OnClickListen
                 }
             });
 
-//            userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//                @Override
-//                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-//                    try {
-//                        Log.i("req_code", requestCode);
-//                        Log.i("USer name", value.getData().toString());
-//                        data.put("Name", (String) value.get("username"));
-//                        data.put("Rating", rating.toString());
-//                        data.put("Body", reviewBody);
-//
-//                        reviewRef.add(data)
-//                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                                    @Override
-//                                    public void onSuccess(DocumentReference documentReference) {
-//                                        Log.i("Added to restaurant: ", documentReference.getId());
-//                                        data.clear();
-//                                        data.put("Restaurant", restaurantName);
-//                                        data.put("Rating", rating.toString());
-//                                        data.put("Body", reviewBody);
-//                                        data.put("Id", documentReference.getId());
-//
-//                                        userRef.collection("Reviews")
-//                                                .document(documentReference.getId())
-//                                                .set(data)
-//                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                                                    @Override
-//                                                    public void onSuccess(Void unused) {
-//                                                        Log.i("Review added to user list", documentReference.getId());
-//                                                    }
-//                                                });
-//                                        data.clear();
-//                                    }
-//                                });
-//                        data.clear();
-////                        requestCode = null;
-//                    }
-//
-//                    catch (Exception e)
-//                    {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            });
             finishAfterTransition();
         }
 

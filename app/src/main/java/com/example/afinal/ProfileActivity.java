@@ -210,6 +210,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             reviewAdapter = new ReviewRecyclerAdapter(list, this);
             recyclerViewReview.setAdapter(reviewAdapter);
             recyclerViewReview.setLayoutManager(new LinearLayoutManager(this));
+
         }
     }
 
