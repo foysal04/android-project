@@ -137,13 +137,13 @@
             android:layout_weight="1">
 
             <Button
-                android:id="@+id/addToFavouritesButton"
+                android:id="@+id/locationButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="#ba1841"
+                android:background="#517ee0"
                 android:fontFamily="@font/cantora_one"
-                android:text="Favourite"
+                android:text="Location"
                 android:textSize="16sp" />
         </androidx.cardview.widget.CardView>
 
@@ -154,13 +154,13 @@
             android:layout_weight="1">
 
             <Button
-                android:id="@+id/locationButton"
+                android:id="@+id/addToFavouritesButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="#517ee0"
+                android:background="#ba1841"
                 android:fontFamily="@font/cantora_one"
-                android:text="Location"
+                android:text="Favourite"
                 android:textSize="16sp" />
         </androidx.cardview.widget.CardView>
 

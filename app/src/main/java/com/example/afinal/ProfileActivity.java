@@ -61,7 +61,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
     ImageView profilePicture;
 
-
+    List<Restaurant> restaurantList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -210,7 +210,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             reviewAdapter = new ReviewRecyclerAdapter(list, this);
             recyclerViewReview.setAdapter(reviewAdapter);
             recyclerViewReview.setLayoutManager(new LinearLayoutManager(this));
-
         }
     }
 

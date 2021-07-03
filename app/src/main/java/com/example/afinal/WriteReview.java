@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -35,11 +36,11 @@ import java.util.Map;
 public class WriteReview extends AppCompatActivity implements View.OnClickListener {
 
     Intent intent;
-    Database database = Database.getInstance();
-    FirebaseFirestore firestore = database.getFirestore();
+//    Database database = Database.getInstance();
+    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     CollectionReference mainRef = firestore.collection("Establishments");
 
-    String uid = database.getFirebaseAuth().getCurrentUser().getUid();
+    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     EditText writeReview;
     Button postReview;
     RatingBar ratingBar;
@@ -64,7 +65,7 @@ public class WriteReview extends AppCompatActivity implements View.OnClickListen
         postReview = (Button) findViewById(R.id.postReviewButton);
         ratingBar = (RatingBar) findViewById(R.id.ratingBarWriteReview);
 
-        Log.i("request", requestCode);
+        Log.i("request, src", requestCode + " " + intent.getStringExtra("src") + " " + WriteReview.this);
 
         if(requestCode.equals("update"))
         {
@@ -114,38 +115,96 @@ public class WriteReview extends AppCompatActivity implements View.OnClickListen
 
         if(requestCode.equals("write")) {
             Log.i("req_code", requestCode);
-            userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+
+            userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
-                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                    Log.i("USer name", value.getData().toString());
-                    data.put("Name", (String) value.get("username"));
-                    data.put("Rating", rating.toString());
-                    data.put("Body", reviewBody);
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    DocumentSnapshot value = task.getResult();
+                    try {
+                        Log.i("req_code", requestCode);
+                        Log.i("USer name", value.getData().toString());
+                        data.put("Name", (String) value.get("username"));
+                        data.put("Rating", rating.toString());
+                        data.put("Body", reviewBody);
 
-                    reviewRef.add(data)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.i("Added to restaurant: ", documentReference.getId());
-                                    data.clear();
-                                    data.put("Restaurant", restaurantName);
-                                    data.put("Rating", rating.toString());
-                                    data.put("Body", reviewBody);
-                                    data.put("Id", documentReference.getId());
+                        reviewRef.add(data)
+                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    @Override
+                                    public void onSuccess(DocumentReference documentReference) {
+                                        Log.i("Added to restaurant: ", documentReference.getId());
+                                        data.clear();
+                                        data.put("Restaurant", restaurantName);
+                                        data.put("Rating", rating.toString());
+                                        data.put("Body", reviewBody);
+                                        data.put("Id", documentReference.getId());
 
-                                    userRef.collection("Reviews")
-                                            .document(documentReference.getId())
-                                            .set(data)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void unused) {
-                                                    Log.i("Review added to user list", documentReference.getId());
-                                                }
-                                            });
-                                }
-                            });
+                                        userRef.collection("Reviews")
+                                                .document(documentReference.getId())
+                                                .set(data)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void unused) {
+                                                        Log.i("Review added to user list", documentReference.getId());
+                                                    }
+                                                });
+                                        data.clear();
+                                    }
+                                });
+                        data.clear();
+//                        requestCode = null;
+                    }
+
+                    catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
                 }
             });
+
+//            userRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+//                @Override
+//                public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+//                    try {
+//                        Log.i("req_code", requestCode);
+//                        Log.i("USer name", value.getData().toString());
+//                        data.put("Name", (String) value.get("username"));
+//                        data.put("Rating", rating.toString());
+//                        data.put("Body", reviewBody);
+//
+//                        reviewRef.add(data)
+//                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                                    @Override
+//                                    public void onSuccess(DocumentReference documentReference) {
+//                                        Log.i("Added to restaurant: ", documentReference.getId());
+//                                        data.clear();
+//                                        data.put("Restaurant", restaurantName);
+//                                        data.put("Rating", rating.toString());
+//                                        data.put("Body", reviewBody);
+//                                        data.put("Id", documentReference.getId());
+//
+//                                        userRef.collection("Reviews")
+//                                                .document(documentReference.getId())
+//                                                .set(data)
+//                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                                    @Override
+//                                                    public void onSuccess(Void unused) {
+//                                                        Log.i("Review added to user list", documentReference.getId());
+//                                                    }
+//                                                });
+//                                        data.clear();
+//                                    }
+//                                });
+//                        data.clear();
+////                        requestCode = null;
+//                    }
+//
+//                    catch (Exception e)
+//                    {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            });
+            finishAfterTransition();
         }
 
         else if(requestCode.equals("update"))
@@ -166,6 +225,6 @@ public class WriteReview extends AppCompatActivity implements View.OnClickListen
 
             startActivity(new Intent(WriteReview.this, ProfileActivity.class));
         }
-        finish();
+        finishAfterTransition();
     }
 }

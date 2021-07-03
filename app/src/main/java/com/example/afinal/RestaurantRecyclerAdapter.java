@@ -52,6 +52,7 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
 
         StorageReference storageReference = FirebaseStorage.getInstance().getReference();
         String imageDir = restaurantArrayList.get(position).getRestaurantImage();
+        float rating = restaurantArrayList.get(position).getAverageRating();
         StorageReference profileImageRef = storageReference.child(imageDir);
 //        isCreated = true;
 //        Log.i("imagedir", restaurantName + " " + String.valueOf(profileImageRef));
@@ -94,11 +95,15 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 Log.i("pos", String.valueOf(position));
                 intent.putExtra("restaurant_name", (String) holder.restaurantName.getText());
+                intent.putExtra("rating", String.valueOf(rating));
+                intent.putExtra("image", imageDir);
                 Log.i("name", (String) holder.restaurantName.getText());
                 if(mContext instanceof HomePageActivity)
                     intent.putExtra("src", "HomePage");
                 else if(mContext instanceof ProfileActivity)
                     intent.putExtra("src", "ProfilePage");
+                else if(mContext instanceof SearchResultActivity)
+                    intent.putExtra("src", "SearchPage");
                 mContext.startActivity(intent);
             }
         });
@@ -107,6 +112,11 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
     @Override
     public int getItemCount() {
         return restaurantArrayList.size();
+    }
+
+    public void addRestaurant(Restaurant restaurant)
+    {
+        restaurantArrayList.add(restaurant);
     }
 
     public ArrayList<Restaurant> getRestaurantArrayList()

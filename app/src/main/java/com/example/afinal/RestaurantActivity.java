@@ -30,8 +30,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -56,11 +59,13 @@ import java.util.Set;
 
 public class RestaurantActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Database database = Database.getInstance();
-    FirebaseFirestore firestore = database.getFirestore();
+    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     CollectionReference mainRef = firestore.collection("Establishments");
     RecyclerView recyclerView;
     String restaurantName;
+    String rating;
+    String imageDir;
+
     String uid;
     Button addReviewButton;
     Button addFavouriteButton;
@@ -79,7 +84,7 @@ public class RestaurantActivity extends AppCompatActivity implements View.OnClic
     LocationManager locationManager;
     LocationListener locationListener;
 
-    StorageReference storageReference = database.getStorage().getReference();
+    StorageReference storageReference = FirebaseStorage.getInstance().getReference();
 
     List<Address> addresses;
 
@@ -105,11 +110,15 @@ public class RestaurantActivity extends AppCompatActivity implements View.OnClic
         seeInfoButton = (Button) findViewById(R.id.locationButton);
         profileImage = (ImageView) findViewById(R.id.restaurantProfilePicture);
 
+        recyclerView = findViewById(R.id.recyclerViewRestaurantPage);
+
         addReviewButton.setOnClickListener(this);
         addFavouriteButton.setOnClickListener(this);
         seeInfoButton.setOnClickListener(this);
 
         restaurantName = intent.getStringExtra("restaurant_name");
+        imageDir = intent.getStringExtra("image");
+        rating = intent.getStringExtra("rating");
         getRestaurantData(new FirebaseCallback() {
             @Override
             public void onCallBack(List<Review> list) {
@@ -117,19 +126,19 @@ public class RestaurantActivity extends AppCompatActivity implements View.OnClic
             }
         });
 
-        uid = Objects.requireNonNull(database.getFirebaseAuth().getCurrentUser()).getUid();
-        firestore.collection("Users")
-                .document(uid)
+        uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
+        firestore.collection("Users").document(uid)
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                        assert value != null;
                         Map<String, Object> data = value.getData();
 
-                        if (data.containsKey("Favourites")) {
-                            ArrayList<String> favourites = (ArrayList<String>) data.get("Favourites");
+                        if (data.containsKey("Favourites_data")) {
+                            Log.i("hasdata", "Has data");
+                            Map<String, Map<String, String>> favourites = (Map<String, Map<String, String>>) data.get("Favourites_data");
 
-                            if (favourites.contains(restaurantName)) {
+                            if (favourites.containsKey(restaurantName)) {
                                 addFavouriteButton.setText("Unfavourite");
                             } else {
                                 addFavouriteButton.setText("Favourite");
@@ -140,8 +149,9 @@ public class RestaurantActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onRestart() {
+        super.onRestart();
+
         getRestaurantData(new FirebaseCallback() {
             @Override
             public void onCallBack(List<Review> list) {
@@ -163,6 +173,9 @@ public class RestaurantActivity extends AppCompatActivity implements View.OnClic
 
             else if (src.equals("ProfilePage"))
                 startActivity(new Intent(RestaurantActivity.this, ProfileActivity.class));
+
+            else if (src.equals("SearchPage"))
+                startActivity(new Intent(RestaurantActivity.this, SearchResultActivity.class));
         }
         finish();
     }
@@ -170,7 +183,7 @@ public class RestaurantActivity extends AppCompatActivity implements View.OnClic
     private void initReviewRecyclerView(ArrayList<Review> reviews){
         try{
             System.out.println("initiating restaurant recycler view");
-            recyclerView = findViewById(R.id.recyclerViewRestaurantPage);
+
             adapter = new ReviewRecyclerAdapter(reviews, this);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -181,7 +194,7 @@ public class RestaurantActivity extends AppCompatActivity implements View.OnClic
 
     private void initTags(ArrayList<String> tags){
         try{
-            System.out.println("intialising tags");
+            System.out.println("initialising tags");
             LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
             tagsView = findViewById(R.id.tagsRecyclerView);
             tagsAdapter = new TagsRecyclerViewAdapter(tags, getApplicationContext());
@@ -206,9 +219,11 @@ public class RestaurantActivity extends AppCompatActivity implements View.OnClic
         DocumentReference restRef = firestore.collection("Restaurants").document(restaurantName);
         CollectionReference reviewRef = restRef.collection("Reviews");
 
-        reviewRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        reviewRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                QuerySnapshot value = task.getResult();
+
                 if(!value.isEmpty())
                 {
                     try {
@@ -234,10 +249,9 @@ public class RestaurantActivity extends AppCompatActivity implements View.OnClic
 
                             TextView restaurantNameTextView = (TextView) findViewById(R.id.restaurantNameRestaurantPage);
                             RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBarRestaurantPage);
-                            float rating = Float.parseFloat((String) value.get("Rating"));
-                            ratingBar.setRating(rating);
+                            float rating_float = Float.parseFloat(rating);
+                            ratingBar.setRating(rating_float);
                             restaurantNameTextView.setText(restaurantName);
-                            String imageDir = (String) value.get("Image");
                             StorageReference profileImageRef = storageReference.child(imageDir);
 
                             ArrayList<String> tags = (ArrayList<String>) value.get("Tags");
@@ -261,6 +275,61 @@ public class RestaurantActivity extends AppCompatActivity implements View.OnClic
                 });
             }
         });
+
+//        reviewRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//                if(!value.isEmpty())
+//                {
+//                    try {
+//                        for (DocumentSnapshot doc : value.getDocuments()) {
+//                            float rating = Float.parseFloat((String) doc.get("Rating"));
+//                            reviews.add(new Review((String) doc.get("Name"), (String) doc.get("Body"), rating));
+//                            Log.i("data", doc.getData().toString());
+//                        }
+//
+//                        firebaseCallback.onCallBack(reviews);
+//                    }
+//                    catch (Exception e)
+//                    {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                restRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+//                        if(value.exists())
+//                        {
+//                            Log.i("Snapshot", value.getData().toString());
+//
+//                            TextView restaurantNameTextView = (TextView) findViewById(R.id.restaurantNameRestaurantPage);
+//                            RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBarRestaurantPage);
+//                            float rating_float = Float.parseFloat(rating);
+//                            ratingBar.setRating(rating_float);
+//                            restaurantNameTextView.setText(restaurantName);
+//                            StorageReference profileImageRef = storageReference.child(imageDir);
+//
+//                            ArrayList<String> tags = (ArrayList<String>) value.get("Tags");
+//                            initTags(tags);
+//
+//                            final long ONE_MEGABYTE = 1024 * 1024;
+//                            profileImageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//                                @Override
+//                                public void onSuccess(byte[] bytes) {
+//                                    Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//                                    profileImage.setImageBitmap(bmp);
+//                                }
+//                            }).addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception exception) {
+//                                    Toast.makeText(getApplicationContext(), "No such file or path found!!", Toast.LENGTH_LONG).show();
+//                                }
+//                            });
+//                        }
+//                    }
+//                });
+//            }
+//        });
     }
 
     @Override
@@ -272,51 +341,45 @@ public class RestaurantActivity extends AppCompatActivity implements View.OnClic
                 Intent intent = new Intent(getApplicationContext(), WriteReview.class);
                 intent.putExtra("restaurant_name", restaurantName);
                 intent.putExtra("request_code", "write");
+                intent.putExtra("src", "Restaurant");
                 startActivity(intent);
             }break;
 
             case R.id.addToFavouritesButton:
             {
+                DocumentReference userRef = firestore.collection("Users").document(uid);
                 Log.i("label", addFavouriteButton.getText().toString());
                 if(addFavouriteButton.getText().toString().equals("Favourite")) {
                     Log.i("favs", "yayya");
-                    DocumentReference restRef = firestore.collection("Restaurants").document(restaurantName);
-                    restRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                        @Override
-                        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                            Map<String, Map<String, String>> data = new HashMap<>();
 
-                            Map<String,String> inside = new HashMap<>();
-                            inside.put("Name", (String) value.get("Display_name"));
-                            inside.put("Image", (String) value.get("Image"));
-                            inside.put("Rating", (String) value.get("Rating"));
+                    Map<String,String> inside = new HashMap<>();
+                    inside.put("Name", restaurantName);
+                    inside.put("Image", imageDir);
+                    inside.put("Rating", rating);
 
-//                            data.put(restaurantName, inside);
-                            Log.i("rest data", inside.toString());
-                            firestore.collection("Users")
-                                    .document(uid)
-                                    .update("Favourites_data."+restaurantName, inside);
-                        }
-                    });
-                    firestore.collection("Users")
-                            .document(uid)
-                            .update("Favourites", FieldValue.arrayUnion(restaurantName));
+                    Log.i("rest data", inside.toString());
+                    userRef.update("Favourites_data."+restaurantName, inside);
 
+//                    firestore.collection("Users")
+//                            .document(uid)
+//                            .update("Favourites", FieldValue.arrayUnion(restaurantName));
+
+                    addFavouriteButton.setText((CharSequence) "Favourite");
                     Toast.makeText(this, restaurantName+" added to favourites", Toast.LENGTH_SHORT).show();
                 }
 
                 else
                 {
-                    firestore.collection("Users")
-                            .document(uid)
-                            .update("Favourites", FieldValue.arrayRemove(restaurantName));
+//                    firestore.collection("Users")
+//                            .document(uid)
+//                            .update("Favourites", FieldValue.arrayRemove(restaurantName));
 
-                    firestore.collection("Users")
-                            .document(uid)
-                            .update("Favourites_data."+restaurantName, FieldValue.delete());
-
+                    userRef.update("Favourites_data."+restaurantName, FieldValue.delete());
+                    addFavouriteButton.setText((CharSequence) "Unfavourite");
                     Toast.makeText(this, restaurantName+" removed from favourites", Toast.LENGTH_SHORT).show();
                 }
+
+//                finish();
             }break;
 
             case R.id.locationButton:

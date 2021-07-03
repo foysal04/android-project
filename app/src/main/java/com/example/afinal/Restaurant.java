@@ -81,6 +81,10 @@ public class Restaurant implements Parcelable {
         return imageDir;
     }
 
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+
     public void setRestaurantImage(ImageView restaurantImage) {
         this.restaurantImage = restaurantImage;
     }
