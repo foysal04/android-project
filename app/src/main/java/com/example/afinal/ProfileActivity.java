@@ -17,8 +17,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -83,9 +85,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onCallBack(List<Review> list) {
                 initReviewRecyclerView((ArrayList<Review>) list);
-
             }
         });
+
         mainRef.document(uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -102,7 +104,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                             public void onSuccess(byte[] bytes) {
                                 Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                 profilePicture.setImageBitmap(bmp);
-
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -123,9 +124,11 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onStart() {
         super.onStart();
-        mainRef.document(uid).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+
+        mainRef.document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot value = task.getResult();
                 try {
                     String imageDir = (String) value.get("Image");
 //                    Log.i("imagedir", imageDir);

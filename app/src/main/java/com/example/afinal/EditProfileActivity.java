@@ -34,8 +34,10 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -91,9 +93,11 @@ public class EditProfileActivity extends AppCompatActivity {
         popupMenu.getMenu().add("Take photo");
         popupMenu.getMenu().add("Select from storage");
 
-        mainRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        mainRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot value = task.getResult();
+
                 try {
                     String name = (String) value.get("username");
                     Log.i("Name", name);
